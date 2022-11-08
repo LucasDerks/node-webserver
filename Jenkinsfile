@@ -12,11 +12,21 @@ pipeline {
             }
         }
         stage('Build docker image') {
+            agent {
+                docker {
+                    image 'docker:latest'
+                }
+            }
             steps {
                 app = docker.build("lucas5523/node-webserver")
             }
         }
         stage('Push image') {
+            agent {
+                docker {
+                    image 'docker:latest'
+                }
+            }
             steps {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
                     app.push("${env.BUILD_NUMBER}")
