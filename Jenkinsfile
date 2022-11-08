@@ -11,11 +11,6 @@ pipeline {
             }
         }
         stage('Build docker image') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                }
-            }
             steps {
                 script {
                     app = docker.build("lucas5523/node-webserver")
@@ -23,11 +18,6 @@ pipeline {
             }
         }
         stage('Push image') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                }
-            }
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
